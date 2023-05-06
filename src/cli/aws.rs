@@ -2,17 +2,43 @@ use super::args::{AwsConsoleArgs, AwsExecArgs};
 use super::environments::NotifyEnvironment;
 use std::process::Command;
 
-fn get_account_name_from_environment(environment: NotifyEnvironment) -> &'static str {
-    match environment {
-        NotifyEnvironment::DEV => return "notify-tools",
-        NotifyEnvironment::PREVIEW => return "notify-preview",
-        NotifyEnvironment::STAGING => return "notify-staging",
-        NotifyEnvironment::PRODUCTION => return "notify-prod",
-    }
+fn get_account_name_from_environment(environment: NotifyEnvironment, admin: bool) -> &'static str {
+    let base_role_name = match environment {
+        NotifyEnvironment::DEV => {
+            if admin {
+                "notify-tools-admin"
+            } else {
+                "notify-tools"
+            }
+        }
+        NotifyEnvironment::PREVIEW => {
+            if admin {
+                "notify-preview-admin"
+            } else {
+                "notify-preview"
+            }
+        }
+        NotifyEnvironment::STAGING => {
+            if admin {
+                "notify-staging-admin"
+            } else {
+                "notify-staging"
+            }
+        }
+        NotifyEnvironment::PRODUCTION => {
+            if admin {
+                "notify-prod-admin"
+            } else {
+                "notify-prod"
+            }
+        }
+    };
+
+    base_role_name
 }
 
 pub fn exec(args: AwsExecArgs) {
-    let env = get_account_name_from_environment(args.environment);
+    let env = get_account_name_from_environment(args.environment, args.admin);
 
     let mut full_command: Vec<String> = vec!["aws", env, "--"]
         .into_iter()
@@ -27,7 +53,7 @@ pub fn exec(args: AwsExecArgs) {
 }
 
 pub fn console(args: AwsConsoleArgs) {
-    let env = get_account_name_from_environment(args.environment);
+    let env = get_account_name_from_environment(args.environment, args.admin);
 
     match Command::new("gds").args(["aws", env, "-l"]).status() {
         Err(_) => {}

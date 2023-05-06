@@ -65,6 +65,10 @@ pub struct AwsExecArgs {
 pub struct AwsConsoleArgs {
     // The environment to target
     pub environment: NotifyEnvironment,
+
+    // Use the admin role with write access
+    #[clap(long = "with-admin-access")]
+    pub admin: bool,
 }
 
 #[derive(Debug, Args)]
