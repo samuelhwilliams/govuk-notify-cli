@@ -133,6 +133,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "govuk-notify-cli"
+version = "0.1.0"
+dependencies = [
+ "clap",
+]
+
+[[package]]
 name = "heck"
 version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -178,13 +185,6 @@ name = "linux-raw-sys"
 version = "0.3.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ece97ea872ece730aed82664c424eb4c8291e1ff2480247ccf7409044bc6479f"
-
-[[package]]
-name = "notify-cli"
-version = "0.1.0"
-dependencies = [
- "clap",
-]
 
 [[package]]
 name = "once_cell"

@@ -1,9 +1,13 @@
 [package]
-name = "notify-cli"
+name = "govuk-notify-cli"
 description = "A CLI for developers on GOV.UK Notify"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
+
+[[bin]]
+name = "notify"
+path = "src/main.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
