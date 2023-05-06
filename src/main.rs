@@ -7,8 +7,8 @@ fn main() {
 
     match args.command {
         cli::args::Command::Aws(command) => match command.subcommand {
-            cli::args::AwsSubcommand::Exec(ec) => cli::aws::exec(ec.environment, ec.command),
-            cli::args::AwsSubcommand::Console(ec) => cli::aws::console(ec.environment),
+            cli::args::AwsSubcommand::Exec(ec) => cli::aws::exec(ec),
+            cli::args::AwsSubcommand::Console(ec) => cli::aws::console(ec),
         },
         cli::args::Command::Db(_ec) => {}
         cli::args::Command::Ssh(_ec) => {}

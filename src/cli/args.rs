@@ -30,22 +30,45 @@ pub struct AwsCommand {
 pub enum AwsSubcommand {
     // Execute a command in a given AWS account
     #[clap(visible_alias("e"))]
-    Exec(EnvironmentCommand),
+    Exec(AwsExecArgs),
 
     // Launch the AWS Console in a browser window
     #[clap(visible_alias("c"))]
-    Console(EnvironmentArg),
+    Console(AwsConsoleArgs),
 }
 
 #[derive(Debug, Args)]
 pub struct EnvironmentCommand {
+    // The environment to target
     pub environment: NotifyEnvironment,
 
+    // The command to run
     #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1..)]
     pub command: Vec<String>,
 }
 
 #[derive(Debug, Args)]
+pub struct AwsExecArgs {
+    // The environment to target
+    pub environment: NotifyEnvironment,
+
+    // Use the admin role with write access
+    #[clap(long = "with-admin-access")]
+    pub admin: bool,
+
+    // The command to run
+    #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1..)]
+    pub command: Vec<String>,
+}
+
+#[derive(Debug, Args)]
+pub struct AwsConsoleArgs {
+    // The environment to target
+    pub environment: NotifyEnvironment,
+}
+
+#[derive(Debug, Args)]
 pub struct EnvironmentArg {
+    // The environment to target
     pub environment: NotifyEnvironment,
 }
