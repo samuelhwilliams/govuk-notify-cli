@@ -78,8 +78,8 @@ pub struct DbArgs {
     pub environment: NotifyEnvironment,
 
     /// The environment to target
-    #[clap(value_enum, long="target", default_value_t = InfrastructureTarget::PAAS)]
-    pub target: InfrastructureTarget,
+    #[clap(value_enum, long="infra", default_value_t = InfrastructureTarget::PAAS)]
+    pub infra: InfrastructureTarget,
 
     #[clap(long = "with-admin-access")]
     pub admin: bool,
@@ -91,8 +91,8 @@ pub struct DbArgs {
 
 #[derive(Debug, Args)]
 pub struct SshArgs {
-    #[clap(value_enum, long="target", default_value_t = InfrastructureTarget::PAAS)]
-    pub target: InfrastructureTarget,
+    #[clap(value_enum, long="infra", default_value_t = InfrastructureTarget::PAAS)]
+    pub infra: InfrastructureTarget,
 
     /// The environment to target
     pub environment: NotifyEnvironment,
@@ -101,7 +101,7 @@ pub struct SshArgs {
         long = "aws-repo",
         required = false,
         env = "NOTIFY_AWS",
-        required_if_eq("target", "AWS")
+        required_if_eq("infra", "AWS")
     )]
     /// Path to your local checkout of the notifications-aws repo
     pub aws_repo: PathBuf,

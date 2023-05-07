@@ -32,7 +32,7 @@ fn db_connect_paas(environment: NotifyEnvironment, admin: bool, command: Vec<Str
 }
 
 pub fn connect(args: DbArgs) {
-    match args.target {
+    match args.infra {
         InfrastructureTarget::PAAS => db_connect_paas(args.environment, args.admin, args.command),
         InfrastructureTarget::AWS => {}
     };
