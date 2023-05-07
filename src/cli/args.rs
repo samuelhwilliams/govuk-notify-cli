@@ -57,7 +57,7 @@ pub struct AwsExecArgs {
     pub admin: bool,
 
     // The command to run
-    #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1..)]
+    #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1.., required = true)]
     pub command: Vec<String>,
 }
 
