@@ -44,16 +44,6 @@ pub enum AwsSubcommand {
 }
 
 #[derive(Debug, Args)]
-pub struct EnvironmentCommand {
-    /// The environment to target
-    pub environment: NotifyEnvironment,
-
-    /// The command to run
-    #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1..)]
-    pub command: Vec<String>,
-}
-
-#[derive(Debug, Args)]
 pub struct AwsExecArgs {
     /// The environment to target
     pub environment: NotifyEnvironment,
@@ -63,7 +53,7 @@ pub struct AwsExecArgs {
     pub admin: bool,
 
     /// The command to run
-    #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1.., required = true)]
+    #[clap(last = true, allow_hyphen_values = true, num_args=1.., required = true)]
     pub command: Vec<String>,
 }
 
@@ -99,7 +89,7 @@ pub struct DbArgs {
     pub aws_repo: PathBuf,
 
     /// The command to run
-    #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1.., default_value = "psql")]
+    #[clap(last = true, allow_hyphen_values = true, num_args=1.., default_value = "psql")]
     pub command: Vec<String>,
 }
 
