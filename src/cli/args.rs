@@ -5,7 +5,7 @@ use clap::{Args, Parser, Subcommand};
 use clap_complete::Shell;
 
 #[derive(Debug, Parser)]
-#[clap(author, version, about, arg_required_else_help = true)]
+#[clap(name = "notify", author, version, about, arg_required_else_help = true)]
 pub struct NotifyCliArgs {
     #[arg(long = "generate", value_enum)]
     pub generator: Option<Shell>,
