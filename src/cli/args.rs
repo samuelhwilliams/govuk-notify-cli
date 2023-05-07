@@ -2,12 +2,16 @@ use std::path::PathBuf;
 
 use super::enums::{InfrastructureTarget, NotifyEnvironment};
 use clap::{Args, Parser, Subcommand};
+use clap_complete::Shell;
 
 #[derive(Debug, Parser)]
-#[clap(author, version, about)]
+#[clap(author, version, about, arg_required_else_help = true)]
 pub struct NotifyCliArgs {
+    #[arg(long = "generate", value_enum)]
+    pub generator: Option<Shell>,
+
     #[clap(subcommand)]
-    pub command: Command,
+    pub command: Option<Command>,
 }
 
 #[derive(Debug, Subcommand)]
