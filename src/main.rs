@@ -14,7 +14,7 @@ fn main() {
 
     if let Some(generator) = args.generator {
         let mut cmd = cli::args::NotifyCliArgs::command();
-        eprintln!("Generating completion file for {generator:?}...");
+        println!("Generating completion file for {generator:?}...");
         print_completions(generator, &mut cmd);
     } else {
         match args.command {
