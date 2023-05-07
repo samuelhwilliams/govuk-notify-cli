@@ -89,7 +89,7 @@ pub struct DbArgs {
     pub admin: bool,
 
     /// The command to run
-    #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1.., required = true)]
+    #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1.., default_value = "psql")]
     pub command: Vec<String>,
 }
 
