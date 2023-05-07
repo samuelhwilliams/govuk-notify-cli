@@ -71,6 +71,7 @@ pub fn connect(args: DbArgs) {
             db_connect_paas(args.environment, args.allow_writes, args.command);
         }
         InfrastructureTarget::AWS => {
+            // We don't support readonly access here yet, WIP.
             confirm_cyber_approval(args.environment, true);
             db_connect_aws(args.environment, args.command, args.aws_repo);
         }
