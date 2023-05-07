@@ -5,6 +5,9 @@ use std::process::{exit, Command, Stdio};
 
 use super::enums::NotifyEnvironment;
 
+const CF_API_DOMAIN: &str = "api.cloud.service.gov.uk";
+const CF_ORG_NOTIFY: &str = "govuk-notify";
+
 pub fn get_account_name_from_environment(
     environment: &NotifyEnvironment,
     admin: bool,
@@ -55,10 +58,10 @@ pub fn cf_ensure_logged_in_and_target_space(environment: NotifyEnvironment) {
                 .args([
                     "login",
                     "-a",
-                    "api.cloud.service.gov.uk",
+                    CF_API_DOMAIN,
                     "--sso",
                     "-o",
-                    "govuk-notify",
+                    CF_ORG_NOTIFY,
                     "-s",
                     environment.to_string().as_str(),
                 ])
@@ -67,8 +70,9 @@ pub fn cf_ensure_logged_in_and_target_space(environment: NotifyEnvironment) {
 
             if !exitcode.success() {
                 println!(
-                    "\n{}: Could not log into CF CLI. Please try manually: `cf login -a api.cloud.service.gov.uk --sso`",
-                    Color::Red.paint("FAILED")
+                    "\n{}: Could not log into CF CLI. Please try manually: `cf login -a {} --sso`",
+                    Color::Red.paint("FAILED"),
+                    CF_API_DOMAIN,
                 );
                 exit(1);
             }
