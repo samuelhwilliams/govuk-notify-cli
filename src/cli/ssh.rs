@@ -6,7 +6,7 @@ use super::{
     helpers::get_account_name_from_environment,
 };
 
-static CLUSTER_NAME: &str = "notify";
+const CLUSTER_NAME: &str = "notify";
 
 fn aws_ssh_via_ecs_exec(environment: NotifyEnvironment, service_name: String) {
     let aws_account_name = get_account_name_from_environment(environment, true);
