@@ -7,10 +7,10 @@ fn main() {
 
     match args.command {
         cli::args::Command::Aws(command) => match command.subcommand {
-            cli::args::AwsSubcommand::Exec(ec) => cli::aws::exec(ec),
-            cli::args::AwsSubcommand::Console(ec) => cli::aws::console(ec),
+            cli::args::AwsSubcommand::Exec(args) => cli::aws::exec(args),
+            cli::args::AwsSubcommand::Console(args) => cli::aws::console(args),
         },
-        cli::args::Command::Db(ec) => cli::db::connect(ec),
-        cli::args::Command::Ssh(_ec) => {}
+        cli::args::Command::Db(args) => cli::db::connect(args),
+        cli::args::Command::Ssh(_args) => {}
     }
 }

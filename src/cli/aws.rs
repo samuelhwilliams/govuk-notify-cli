@@ -3,38 +3,20 @@ use super::enums::NotifyEnvironment;
 use std::process::Command;
 
 fn get_account_name_from_environment(environment: NotifyEnvironment, admin: bool) -> &'static str {
-    let base_role_name = match environment {
-        NotifyEnvironment::DEV => {
-            if admin {
-                "notify-tools-admin"
-            } else {
-                "notify-tools"
-            }
-        }
-        NotifyEnvironment::PREVIEW => {
-            if admin {
-                "notify-preview-admin"
-            } else {
-                "notify-preview"
-            }
-        }
-        NotifyEnvironment::STAGING => {
-            if admin {
-                "notify-staging-admin"
-            } else {
-                "notify-staging"
-            }
-        }
-        NotifyEnvironment::PRODUCTION => {
-            if admin {
-                "notify-prod-admin"
-            } else {
-                "notify-prod"
-            }
-        }
+    match admin {
+        true => match environment {
+            NotifyEnvironment::DEV => return "notify-tools-admin",
+            NotifyEnvironment::PREVIEW => return "notify-preview-admin",
+            NotifyEnvironment::STAGING => return "notify-staging-admin",
+            NotifyEnvironment::PRODUCTION => return "notify-production-admin",
+        },
+        false => match environment {
+            NotifyEnvironment::DEV => return "notify-tools",
+            NotifyEnvironment::PREVIEW => return "notify-preview",
+            NotifyEnvironment::STAGING => return "notify-staging",
+            NotifyEnvironment::PRODUCTION => return "notify-production",
+        },
     };
-
-    base_role_name
 }
 
 pub fn exec(args: AwsExecArgs) {
