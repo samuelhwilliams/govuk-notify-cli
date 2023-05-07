@@ -8,6 +8,14 @@ A thin wrapper CLI around some common commands that GOV.UK Notify developers mig
 * Connect to a database
 * Log into AWS Console / run a command in a Notify AWS account
 
+## Shell completions
+
+Shell completions are available from `notify --generate <shell>`. If you want these always available, you can add something like this to your `~/.bash_profile`:
+
+```bash
+source <(notify --generate bash 2>/dev/null)
+```
+
 ## Dependencies
 
 This CLI depends on quite lot of other utilities being installed and already configured as per our [getting started](https://github.com/alphagov/notifications-manuals/wiki/Getting-started) docs:
