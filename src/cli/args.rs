@@ -111,10 +111,6 @@ pub struct SshArgs {
     pub aws_repo: PathBuf,
 
     /// The name of the service to SSH onto
-    #[clap(
-        long = "service-name",
-        default_value = "notify-api",
-        default_value_if("infra", "aws", "api")
-    )]
+    #[clap(default_value = "notify-api", default_value_if("infra", "aws", "api"))]
     pub service_name: String,
 }
