@@ -59,7 +59,7 @@ pub struct AwsExecArgs {
     pub environment: NotifyEnvironment,
 
     /// Use the admin role with write access
-    #[clap(long = "with-admin-access")]
+    #[clap(long = "admin")]
     pub admin: bool,
 
     /// The command to run
@@ -73,7 +73,7 @@ pub struct AwsConsoleArgs {
     pub environment: NotifyEnvironment,
 
     /// Use the admin role with write access
-    #[clap(long = "with-admin-access")]
+    #[clap(long = "admin")]
     pub admin: bool,
 }
 
@@ -85,7 +85,7 @@ pub struct DbArgs {
     #[clap(value_enum, long="infra", default_value_t = InfrastructureTarget::PAAS)]
     pub infra: InfrastructureTarget,
 
-    #[clap(long = "with-admin-access")]
+    #[clap(long = "admin")]
     pub admin: bool,
 
     /// The command to run
