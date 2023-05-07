@@ -1,4 +1,4 @@
-use super::environments::NotifyEnvironment;
+use super::enums::{DbTarget, DeploymentEnvironment, NotifyEnvironment};
 use clap::{Args, Parser, Subcommand};
 
 #[derive(Debug, Parser)]
@@ -14,7 +14,7 @@ pub enum Command {
     Aws(AwsCommand),
 
     /// Get a connection to one of Notify's databases
-    Db(EnvironmentCommand),
+    Db(DbArgs),
 
     /// SSH to a Notify app instance
     Ssh(EnvironmentCommand),
@@ -69,6 +69,22 @@ pub struct AwsConsoleArgs {
     // Use the admin role with write access
     #[clap(long = "with-admin-access")]
     pub admin: bool,
+}
+
+#[derive(Debug, Args)]
+pub struct DbArgs {
+    // The environment to target
+    pub environment: DeploymentEnvironment,
+
+    #[clap(value_enum, long="target", default_value_t = DbTarget::PAAS)]
+    pub target: DbTarget,
+
+    #[clap(long = "with-admin-access")]
+    pub admin: bool,
+
+    // The command to run
+    #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1.., required = true)]
+    pub command: Vec<String>,
 }
 
 #[derive(Debug, Args)]

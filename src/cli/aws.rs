@@ -1,5 +1,5 @@
 use super::args::{AwsConsoleArgs, AwsExecArgs};
-use super::environments::NotifyEnvironment;
+use super::enums::NotifyEnvironment;
 use std::process::Command;
 
 fn get_account_name_from_environment(environment: NotifyEnvironment, admin: bool) -> &'static str {
