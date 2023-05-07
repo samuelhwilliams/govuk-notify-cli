@@ -11,6 +11,6 @@ fn main() {
             cli::args::AwsSubcommand::Console(args) => cli::aws::console(args),
         },
         cli::args::Command::Db(args) => cli::db::connect(args),
-        cli::args::Command::Ssh(_args) => {}
+        cli::args::Command::Ssh(args) => cli::ssh::connect(args),
     }
 }

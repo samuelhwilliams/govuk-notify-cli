@@ -1,8 +1,8 @@
 use super::args::DbArgs;
-use super::enums::{DbTarget, DeploymentEnvironment};
+use super::enums::{InfrastructureTarget, NotifyEnvironment};
 use std::process::{exit, Command};
 
-fn db_connect_paas(environment: DeploymentEnvironment, admin: bool, command: Vec<String>) {
+fn db_connect_paas(environment: NotifyEnvironment, admin: bool, command: Vec<String>) {
     match Command::new("cf")
         .args(["target", "-s", environment.to_string().as_str()])
         .status()
@@ -33,7 +33,7 @@ fn db_connect_paas(environment: DeploymentEnvironment, admin: bool, command: Vec
 
 pub fn connect(args: DbArgs) {
     match args.target {
-        DbTarget::PAAS => db_connect_paas(args.environment, args.admin, args.command),
-        DbTarget::AWS => {}
+        InfrastructureTarget::PAAS => db_connect_paas(args.environment, args.admin, args.command),
+        InfrastructureTarget::AWS => {}
     };
 }

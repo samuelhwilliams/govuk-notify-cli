@@ -1,4 +1,6 @@
-use super::enums::{DbTarget, DeploymentEnvironment, NotifyEnvironment};
+use std::path::PathBuf;
+
+use super::enums::{InfrastructureTarget, NotifyEnvironment};
 use clap::{Args, Parser, Subcommand};
 
 #[derive(Debug, Parser)]
@@ -17,7 +19,7 @@ pub enum Command {
     Db(DbArgs),
 
     /// SSH to a Notify app instance
-    Ssh(EnvironmentCommand),
+    Ssh(SshArgs),
 }
 
 #[derive(Debug, Args)]
@@ -73,11 +75,11 @@ pub struct AwsConsoleArgs {
 
 #[derive(Debug, Args)]
 pub struct DbArgs {
-    /// The environment to target
-    pub environment: DeploymentEnvironment,
+    pub environment: NotifyEnvironment,
 
-    #[clap(value_enum, long="target", default_value_t = DbTarget::PAAS)]
-    pub target: DbTarget,
+    /// The environment to target
+    #[clap(value_enum, long="target", default_value_t = InfrastructureTarget::PAAS)]
+    pub target: InfrastructureTarget,
 
     #[clap(long = "with-admin-access")]
     pub admin: bool,
@@ -88,7 +90,19 @@ pub struct DbArgs {
 }
 
 #[derive(Debug, Args)]
-pub struct EnvironmentArg {
+pub struct SshArgs {
+    #[clap(value_enum, long="target", default_value_t = InfrastructureTarget::PAAS)]
+    pub target: InfrastructureTarget,
+
     /// The environment to target
     pub environment: NotifyEnvironment,
+
+    #[clap(
+        long = "aws-repo",
+        required = false,
+        env = "NOTIFY_AWS",
+        required_if_eq("target", "AWS")
+    )]
+    /// Path to your local checkout of the notifications-aws repo
+    pub aws_repo: PathBuf,
 }
