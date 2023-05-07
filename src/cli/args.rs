@@ -28,52 +28,52 @@ pub struct AwsCommand {
 
 #[derive(Debug, Subcommand)]
 pub enum AwsSubcommand {
-    // Execute a command in a given AWS account
+    /// Execute a command in a given AWS account
     #[clap(visible_alias("e"))]
     Exec(AwsExecArgs),
 
-    // Launch the AWS Console in a browser window
+    /// Launch the AWS Console in a browser window
     #[clap(visible_alias("c"))]
     Console(AwsConsoleArgs),
 }
 
 #[derive(Debug, Args)]
 pub struct EnvironmentCommand {
-    // The environment to target
+    /// The environment to target
     pub environment: NotifyEnvironment,
 
-    // The command to run
+    /// The command to run
     #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1..)]
     pub command: Vec<String>,
 }
 
 #[derive(Debug, Args)]
 pub struct AwsExecArgs {
-    // The environment to target
+    /// The environment to target
     pub environment: NotifyEnvironment,
 
-    // Use the admin role with write access
+    /// Use the admin role with write access
     #[clap(long = "with-admin-access")]
     pub admin: bool,
 
-    // The command to run
+    /// The command to run
     #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1.., required = true)]
     pub command: Vec<String>,
 }
 
 #[derive(Debug, Args)]
 pub struct AwsConsoleArgs {
-    // The environment to target
+    /// The environment to target
     pub environment: NotifyEnvironment,
 
-    // Use the admin role with write access
+    /// Use the admin role with write access
     #[clap(long = "with-admin-access")]
     pub admin: bool,
 }
 
 #[derive(Debug, Args)]
 pub struct DbArgs {
-    // The environment to target
+    /// The environment to target
     pub environment: DeploymentEnvironment,
 
     #[clap(value_enum, long="target", default_value_t = DbTarget::PAAS)]
@@ -82,13 +82,13 @@ pub struct DbArgs {
     #[clap(long = "with-admin-access")]
     pub admin: bool,
 
-    // The command to run
+    /// The command to run
     #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1.., required = true)]
     pub command: Vec<String>,
 }
 
 #[derive(Debug, Args)]
 pub struct EnvironmentArg {
-    // The environment to target
+    /// The environment to target
     pub environment: NotifyEnvironment,
 }
