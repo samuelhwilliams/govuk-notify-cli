@@ -69,6 +69,6 @@ fn aws_ssh_via_ecs_exec(environment: NotifyEnvironment, service_name: String) {
 pub fn connect(args: SshArgs) {
     match args.infra {
         InfrastructureTarget::PAAS => {}
-        InfrastructureTarget::AWS => aws_ssh_via_ecs_exec(args.environment, "api".to_string()),
+        InfrastructureTarget::AWS => aws_ssh_via_ecs_exec(args.environment, args.service_name),
     }
 }
