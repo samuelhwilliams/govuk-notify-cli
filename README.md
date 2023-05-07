@@ -15,4 +15,5 @@ This CLI depends on quite lot of other utilities being installed and already con
 * [gds-cli](https://github.com/alphagov/gds-cli)
 * [cf-cli](https://github.com/cloudfoundry/cli/blob/main/doc/installation-instructions/installation-instructions-v7.md#installers-and-compressed-binaries)
 * [aws session manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html#install-plugin-macos)
-
+* [notifications-aws](https://github.com/alphagov/notifications-aws/) checked out.
+    * Add `export NOTIFY_AWS=<path_to_git_repo>` to your `~/.bash_profile` or equivalent. This environment variable will be read as a default value when trying to run certain scripts from the notifications-aws repo.
