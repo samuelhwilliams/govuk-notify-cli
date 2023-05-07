@@ -24,7 +24,7 @@ fn main() {
             },
             Some(cli::args::Command::Db(args)) => cli::db::connect(args),
             Some(cli::args::Command::Ssh(args)) => cli::ssh::connect(args),
-            None => println!("{args:#?}"),
+            None => {}
         }
     }
 }
