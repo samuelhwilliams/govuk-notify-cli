@@ -85,8 +85,9 @@ pub struct DbArgs {
     #[clap(value_enum, long="infra", default_value_t = InfrastructureTarget::PAAS)]
     pub infra: InfrastructureTarget,
 
-    #[clap(long = "admin")]
-    pub admin: bool,
+    /// Connect with write access
+    #[clap(long = "allow-writes")]
+    pub allow_writes: bool,
 
     /// The command to run
     #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1.., default_value = "psql")]
