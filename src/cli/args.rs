@@ -89,6 +89,15 @@ pub struct DbArgs {
     #[clap(long = "allow-writes")]
     pub allow_writes: bool,
 
+    #[clap(
+        long = "aws-repo",
+        required = false,
+        env = "NOTIFY_AWS",
+        required_if_eq("infra", "AWS")
+    )]
+    /// Path to your local checkout of the notifications-aws repo
+    pub aws_repo: PathBuf,
+
     /// The command to run
     #[clap(trailing_var_arg = true, allow_hyphen_values = true, num_args=1.., default_value = "psql")]
     pub command: Vec<String>,
@@ -101,15 +110,6 @@ pub struct SshArgs {
 
     /// The environment to target
     pub environment: NotifyEnvironment,
-
-    #[clap(
-        long = "aws-repo",
-        required = false,
-        env = "NOTIFY_AWS",
-        required_if_eq("infra", "AWS")
-    )]
-    /// Path to your local checkout of the notifications-aws repo
-    pub aws_repo: PathBuf,
 
     /// The name of the service to SSH onto
     #[clap(default_value = "notify-api", default_value_if("infra", "aws", "api"))]

@@ -6,7 +6,7 @@ use std::process::exit;
 use super::enums::NotifyEnvironment;
 
 pub fn get_account_name_from_environment(
-    environment: NotifyEnvironment,
+    environment: &NotifyEnvironment,
     admin: bool,
 ) -> &'static str {
     match admin {
@@ -27,7 +27,7 @@ pub fn get_account_name_from_environment(
 
 pub fn confirm_cyber_approval(environment: NotifyEnvironment, admin: bool) {
     match (environment, admin) {
-        (NotifyEnvironment::PREVIEW, true) => {
+        (NotifyEnvironment::PRODUCTION, true) => {
             let mut answer = String::new();
             print!(
                 "\n{}: This action will trigger a cyber alert. Have you submitted a 2-eye approval? [y/N] ",

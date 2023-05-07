@@ -9,7 +9,7 @@ use super::{
 const CLUSTER_NAME: &str = "notify";
 
 fn aws_ssh_via_ecs_exec(environment: NotifyEnvironment, service_name: String) {
-    let aws_account_name = get_account_name_from_environment(environment, true);
+    let aws_account_name = get_account_name_from_environment(&environment, true);
 
     println!("Using AWS role: {}", aws_account_name.to_lowercase());
 
