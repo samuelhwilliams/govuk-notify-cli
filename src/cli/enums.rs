@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, clap::ValueEnum, PartialEq, strum_macros::Display)]
+#[derive(Debug, Clone, clap::ValueEnum, PartialEq, strum_macros::Display, Copy)]
 pub enum NotifyEnvironment {
     DEV,
     PREVIEW,
@@ -6,7 +6,7 @@ pub enum NotifyEnvironment {
     PRODUCTION,
 }
 
-#[derive(Debug, Clone, clap::ValueEnum, PartialEq, strum_macros::Display)]
+#[derive(Debug, Clone, clap::ValueEnum, PartialEq, strum_macros::Display, Copy)]
 pub enum InfrastructureTarget {
     PAAS,
     AWS,

@@ -1,5 +1,5 @@
 use super::args::{AwsConsoleArgs, AwsExecArgs};
-use super::helpers::get_account_name_from_environment;
+use super::helpers::{confirm_cyber_approval, get_account_name_from_environment};
 use std::process::Command;
 
 pub fn exec(args: AwsExecArgs) {
@@ -19,6 +19,8 @@ pub fn exec(args: AwsExecArgs) {
 
 pub fn console(args: AwsConsoleArgs) {
     let env = get_account_name_from_environment(args.environment, args.admin);
+
+    confirm_cyber_approval(args.environment, args.admin);
 
     match Command::new("gds").args(["aws", env, "-l"]).status() {
         Err(_) => {}

@@ -1,5 +1,6 @@
 use super::args::DbArgs;
 use super::enums::{InfrastructureTarget, NotifyEnvironment};
+use super::helpers::confirm_cyber_approval;
 use std::process::{exit, Command};
 
 fn db_connect_paas(environment: NotifyEnvironment, allow_writes: bool, command: Vec<String>) {
@@ -32,6 +33,8 @@ fn db_connect_paas(environment: NotifyEnvironment, allow_writes: bool, command: 
 }
 
 pub fn connect(args: DbArgs) {
+    confirm_cyber_approval(args.environment, args.allow_writes);
+
     match args.infra {
         InfrastructureTarget::PAAS => {
             db_connect_paas(args.environment, args.allow_writes, args.command)

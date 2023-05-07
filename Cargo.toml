@@ -12,6 +12,7 @@ path = "src/main.rs"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+ansi_term = "0.12.1"
 clap = { version = "4.2.7", features = ["derive", "env"] }
 clap_complete = "4.2.1"
 strum = { version = "0.24", features = ["derive"] }

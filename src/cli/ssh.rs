@@ -3,7 +3,7 @@ use std::process::{exit, Command, Stdio};
 use super::{
     args::SshArgs,
     enums::{InfrastructureTarget, NotifyEnvironment},
-    helpers::get_account_name_from_environment,
+    helpers::{confirm_cyber_approval, get_account_name_from_environment},
 };
 
 const CLUSTER_NAME: &str = "notify";
@@ -100,6 +100,8 @@ fn paas_ssh_via_cf(environment: NotifyEnvironment, service_name: String) {
 }
 
 pub fn connect(args: SshArgs) {
+    confirm_cyber_approval(args.environment, true);
+
     match args.infra {
         InfrastructureTarget::PAAS => paas_ssh_via_cf(args.environment, args.service_name),
         InfrastructureTarget::AWS => aws_ssh_via_ecs_exec(args.environment, args.service_name),
