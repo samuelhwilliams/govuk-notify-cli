@@ -1,27 +1,16 @@
 use super::args::DbArgs;
 use super::enums::{InfrastructureTarget, NotifyEnvironment};
-use super::helpers::{confirm_cyber_approval, get_account_name_from_environment};
+use super::helpers::{
+    cf_ensure_logged_in_and_target_space, confirm_cyber_approval, get_account_name_from_environment,
+};
 use std::path::PathBuf;
-use std::process::{exit, Command};
+use std::process::Command;
 
 const PAAS_DB_NAME: &str = "notify-db";
 const AWS_DB_NAME: &str = "notifydb";
 
 fn db_connect_paas(environment: NotifyEnvironment, allow_writes: bool, command: Vec<String>) {
-    match Command::new("cf")
-        .args(["target", "-s", environment.to_string().as_str()])
-        .status()
-    {
-        Err(_) => {
-            panic!("Could not target environment: {}", environment.to_string())
-        }
-        Ok(status) => {
-            if !status.success() {
-                println!("Could not target environment: {}", environment.to_string());
-                exit(1);
-            };
-        }
-    }
+    cf_ensure_logged_in_and_target_space(environment);
 
     let base_command = match allow_writes {
         true => vec!["conduit", PAAS_DB_NAME, "--"],

@@ -1,4 +1,6 @@
-use std::process::{exit, Command, Stdio};
+use std::process::Command;
+
+use crate::cli::helpers::cf_ensure_logged_in_and_target_space;
 
 use super::{
     args::SshArgs,
@@ -69,26 +71,7 @@ fn aws_ssh_via_ecs_exec(environment: NotifyEnvironment, service_name: String) {
 }
 
 fn paas_ssh_via_cf(environment: NotifyEnvironment, service_name: String) {
-    println!(
-        "Targetting CF space: {} ...",
-        environment.to_string().to_lowercase()
-    );
-
-    match Command::new("cf")
-        .args(["target", "-s", environment.to_string().as_str()])
-        .stdout(Stdio::null())
-        .status()
-    {
-        Err(_) => {
-            panic!("Could not target environment: {}", environment.to_string())
-        }
-        Ok(status) => {
-            if !status.success() {
-                println!("Could not target environment: {}", environment.to_string());
-                exit(1);
-            };
-        }
-    }
+    cf_ensure_logged_in_and_target_space(environment);
 
     println!("Connecting to {} ...", service_name);
 
