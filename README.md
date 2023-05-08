@@ -10,14 +10,14 @@ A thin wrapper CLI around some common commands that GOV.UK Notify developers mig
 
 ## Installation
 
-The easiest (albeit slowest) way to install is via [homebrew](https://brew.sh/). This will also install some of the required binary dependencies listed below.
+The easiest way to install is via [homebrew](https://brew.sh/). This will also install some of the required binary dependencies listed below.
 
 ```
 brew tap samuelhwilliams/govuk-notify
 brew install govuk-notify-cli
 ```
 
-The brew formula is at[samuelhwilliams/homebrew-govuk-notify](https://github.com/samuelhwilliams/homebrew-govuk-notify).
+The brew formula is at [samuelhwilliams/homebrew-govuk-notify](https://github.com/samuelhwilliams/homebrew-govuk-notify).
 
 ### Dependencies
 
