@@ -35,11 +35,9 @@ pub struct AwsCommand {
 #[derive(Debug, Subcommand)]
 pub enum AwsSubcommand {
     /// Execute a command in a given AWS account
-    #[clap(visible_alias("e"))]
     Exec(AwsExecArgs),
 
     /// Launch the AWS Console in a browser window
-    #[clap(visible_alias("c"))]
     Console(AwsConsoleArgs),
 }
 
