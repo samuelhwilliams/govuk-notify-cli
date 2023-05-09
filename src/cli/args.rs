@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use super::enums::{InfrastructureTarget, NotifyEnvironment};
+use super::enums::NotifyEnvironment;
 use clap::{Args, Parser, Subcommand};
 use clap_complete::Shell;
 
@@ -69,9 +69,9 @@ pub struct AwsConsoleArgs {
 pub struct DbArgs {
     pub environment: NotifyEnvironment,
 
-    /// The environment to target
-    #[clap(value_enum, long="infra", default_value_t = InfrastructureTarget::PAAS)]
-    pub infra: InfrastructureTarget,
+    // Target AWS infrastructure instead
+    #[clap(long, default_value_t = false)]
+    pub aws: bool,
 
     /// Connect with write access
     #[clap(long = "allow-writes")]
@@ -81,7 +81,7 @@ pub struct DbArgs {
         long = "aws-repo",
         required = false,
         env = "NOTIFY_AWS",
-        required_if_eq("infra", "AWS")
+        required_if_eq("aws", "true")
     )]
     /// Path to your local checkout of the notifications-aws repo
     pub aws_repo: PathBuf,
@@ -93,13 +93,14 @@ pub struct DbArgs {
 
 #[derive(Debug, Args)]
 pub struct SshArgs {
-    #[clap(value_enum, long="infra", default_value_t = InfrastructureTarget::PAAS)]
-    pub infra: InfrastructureTarget,
+    // Target AWS infrastructure instead
+    #[clap(long, default_value_t = false)]
+    pub aws: bool,
 
     /// The environment to target
     pub environment: NotifyEnvironment,
 
     /// The name of the service to SSH onto
-    #[clap(default_value = "notify-api", default_value_if("infra", "aws", "api"))]
+    #[clap(default_value = "notify-api", default_value_if("aws", "true", "api"))]
     pub service_name: String,
 }

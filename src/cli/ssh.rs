@@ -4,7 +4,7 @@ use crate::cli::helpers::cf_ensure_logged_in_and_target_space;
 
 use super::{
     args::SshArgs,
-    enums::{InfrastructureTarget, NotifyEnvironment},
+    enums::NotifyEnvironment,
     helpers::{confirm_cyber_approval, get_account_name_from_environment},
 };
 
@@ -85,8 +85,8 @@ fn paas_ssh_via_cf(environment: NotifyEnvironment, service_name: String) {
 pub fn connect(args: SshArgs) {
     confirm_cyber_approval(args.environment, true);
 
-    match args.infra {
-        InfrastructureTarget::PAAS => paas_ssh_via_cf(args.environment, args.service_name),
-        InfrastructureTarget::AWS => aws_ssh_via_ecs_exec(args.environment, args.service_name),
+    match args.aws {
+        true => aws_ssh_via_ecs_exec(args.environment, args.service_name),
+        false => paas_ssh_via_cf(args.environment, args.service_name),
     }
 }

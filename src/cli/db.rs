@@ -1,5 +1,5 @@
 use super::args::DbArgs;
-use super::enums::{InfrastructureTarget, NotifyEnvironment};
+use super::enums::NotifyEnvironment;
 use super::helpers::{
     cf_ensure_logged_in_and_target_space, confirm_cyber_approval, get_account_name_from_environment,
 };
@@ -54,15 +54,15 @@ fn db_connect_aws(environment: NotifyEnvironment, command: Vec<String>, aws_repo
 }
 
 pub fn connect(args: DbArgs) {
-    match args.infra {
-        InfrastructureTarget::PAAS => {
-            confirm_cyber_approval(args.environment, args.allow_writes);
-            db_connect_paas(args.environment, args.allow_writes, args.command);
-        }
-        InfrastructureTarget::AWS => {
+    match args.aws {
+        true => {
             // We don't support readonly access here yet, WIP.
             confirm_cyber_approval(args.environment, true);
             db_connect_aws(args.environment, args.command, args.aws_repo);
+        }
+        false => {
+            confirm_cyber_approval(args.environment, args.allow_writes);
+            db_connect_paas(args.environment, args.allow_writes, args.command);
         }
     };
 }
