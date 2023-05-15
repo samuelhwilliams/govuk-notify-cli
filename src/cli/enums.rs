@@ -3,5 +3,7 @@ pub enum NotifyEnvironment {
     DEV,
     PREVIEW,
     STAGING,
+    PROD,
     PRODUCTION,
+    DEPLOY,
 }

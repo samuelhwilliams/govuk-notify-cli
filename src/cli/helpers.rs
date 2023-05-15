@@ -17,13 +17,15 @@ pub fn get_account_name_from_environment(
             NotifyEnvironment::DEV => return "notify-tools-admin",
             NotifyEnvironment::PREVIEW => return "notify-preview-admin",
             NotifyEnvironment::STAGING => return "notify-staging-admin",
-            NotifyEnvironment::PRODUCTION => return "notify-production-admin",
+            NotifyEnvironment::PROD | NotifyEnvironment::PRODUCTION => return "notify-prod-admin",
+            NotifyEnvironment::DEPLOY => return "notify-deploy-admin",
         },
         false => match environment {
             NotifyEnvironment::DEV => return "notify-tools",
             NotifyEnvironment::PREVIEW => return "notify-preview",
             NotifyEnvironment::STAGING => return "notify-staging",
-            NotifyEnvironment::PRODUCTION => return "notify-production",
+            NotifyEnvironment::PROD | NotifyEnvironment::PRODUCTION => return "notify-prod",
+            NotifyEnvironment::DEPLOY => return "notify-deploy",
         },
     };
 }
