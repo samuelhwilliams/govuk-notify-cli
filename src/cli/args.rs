@@ -74,8 +74,12 @@ pub struct DbArgs {
     pub paas: bool,
 
     /// Connect with write access
-    #[clap(long = "allow-writes")]
-    pub allow_writes: bool,
+    #[clap(long = "write", default_value_t=false)]
+    pub write: bool,
+
+    /// Connect with admin access
+    #[clap(long = "admin", default_value_t=false)]
+    pub admin: bool,
 
     #[clap(
         long = "aws-repo",

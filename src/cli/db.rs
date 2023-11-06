@@ -25,7 +25,7 @@ fn db_connect_paas(environment: NotifyEnvironment, allow_writes: bool, command: 
     }
 }
 
-fn db_connect_aws(environment: NotifyEnvironment, command: Vec<String>, aws_repo_path: PathBuf) {
+fn db_connect_aws(environment: NotifyEnvironment, role: &str, command: Vec<String>, aws_repo_path: PathBuf) {
     let aws_account_name = get_account_name_from_environment(&environment, true);
 
     let executable = aws_repo_path
@@ -39,6 +39,8 @@ fn db_connect_aws(environment: NotifyEnvironment, command: Vec<String>, aws_repo
         aws_account_name,
         "--",
         executable.as_str(),
+        "--role",
+        role,
         AWS_DB_NAME,
         "--",
     ]
@@ -56,13 +58,13 @@ fn db_connect_aws(environment: NotifyEnvironment, command: Vec<String>, aws_repo
 pub fn connect(args: DbArgs) {
     match args.paas {
         true => {
-            confirm_cyber_approval(args.environment, args.allow_writes);
-            db_connect_paas(args.environment, args.allow_writes, args.command);
+            confirm_cyber_approval(args.environment, args.write);
+            db_connect_paas(args.environment, args.write, args.command);
         }
         false => {
-            // We don't support readonly access here yet, WIP.
-            confirm_cyber_approval(args.environment, true);
-            db_connect_aws(args.environment, args.command, args.aws_repo);
+            confirm_cyber_approval(args.environment, args.write || args.admin);
+            let role: &str = if args.admin {"admin"} else if args.write {"write"} else {"readonly"};
+            db_connect_aws(args.environment, role, args.command, args.aws_repo);
         }
     };
 }
