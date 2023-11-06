@@ -105,6 +105,6 @@ pub struct SshArgs {
     pub environment: NotifyEnvironment,
 
     /// The name of the service to SSH onto
-    #[clap(default_value = "notify-api", default_value_if("aws", "true", "api"))]
+    #[clap(default_value = "notify-api", default_value_if("aws", "true", "api-web"))]
     pub service_name: String,
 }
