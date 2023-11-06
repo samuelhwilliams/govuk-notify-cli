@@ -54,15 +54,15 @@ fn db_connect_aws(environment: NotifyEnvironment, command: Vec<String>, aws_repo
 }
 
 pub fn connect(args: DbArgs) {
-    match args.aws {
+    match args.paas {
         true => {
+            confirm_cyber_approval(args.environment, args.allow_writes);
+            db_connect_paas(args.environment, args.allow_writes, args.command);
+        }
+        false => {
             // We don't support readonly access here yet, WIP.
             confirm_cyber_approval(args.environment, true);
             db_connect_aws(args.environment, args.command, args.aws_repo);
-        }
-        false => {
-            confirm_cyber_approval(args.environment, args.allow_writes);
-            db_connect_paas(args.environment, args.allow_writes, args.command);
         }
     };
 }

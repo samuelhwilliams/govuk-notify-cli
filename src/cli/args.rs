@@ -71,7 +71,7 @@ pub struct DbArgs {
 
     // Target AWS infrastructure instead
     #[clap(long, default_value_t = false)]
-    pub aws: bool,
+    pub paas: bool,
 
     /// Connect with write access
     #[clap(long = "allow-writes")]
@@ -81,7 +81,7 @@ pub struct DbArgs {
         long = "aws-repo",
         required = false,
         env = "NOTIFY_AWS",
-        required_if_eq("aws", "true")
+        required_if_eq("paas", "false")
     )]
     /// Path to your local checkout of the notifications-aws repo
     pub aws_repo: PathBuf,
