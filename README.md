@@ -8,6 +8,24 @@ A thin wrapper CLI around some common commands that GOV.UK Notify developers mig
 * Connect to a database (PaaS / AWS)
 * Log into AWS Console / run a command in a Notify AWS account
 
+```
+$ notify
+A CLI for developers on GOV.UK Notify
+
+Usage: notify [OPTIONS] [COMMAND]
+
+Commands:
+  aws   Interact with Notify's AWS infrastructure
+  db    Get a connection to one of Notify's databases
+  ssh   SSH to a Notify app instance
+  help  Print this message or the help of the given subcommand(s)
+
+Options:
+      --generate <GENERATOR>  [possible values: bash, elvish, fish, powershell, zsh]
+  -h, --help                  Print help
+  -V, --version               Print version
+```
+
 ## Installation
 
 The easiest way to install is via [homebrew](https://brew.sh/). This will also install some of the required binary dependencies listed below.
